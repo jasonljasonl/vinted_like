@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from fastapi.testclient import TestClient
-from accounts.account import router, User
+from accounts.account_routes import router, User
 from database_files.database_connection import SessionLocal
 
 client = TestClient(router)
