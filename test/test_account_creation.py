@@ -10,20 +10,20 @@ client = TestClient(router)
 
 def test_create_user():
     payload = {
-        "username": "jdoed",
-        "name": "John",
-        "lastname": "Doe",
-        "email": "jdoem@example.com",
+        "username": "jasona",
+        "name": "jason",
+        "lastname": "jason",
+        "email": "jasona@example.com",
         "password": "secret123"
     }
 
     response = client.post('/users/', json=payload)
     assert response.status_code == 200
     data = response.json()
-    assert data["username"] == "jdoem"
+    assert data["username"] == "jasona"
 
     db = SessionLocal()
-    user_in_db = db.query(User).filter(User.username == "jdoe").first()
+    user_in_db = db.query(User).filter(User.username == "jason").first()
     assert user_in_db is not None
-    assert user_in_db.email == "jdoe@example.com"
+    assert user_in_db.email == "jason@example.com"
     db.close()

@@ -12,4 +12,4 @@ class User(Base):
     name = Column(String)
     lastname = Column(String)
     email = Column(String, unique=True, index=True)
-    password = Column(String)
+    hashed_password = Column(String)

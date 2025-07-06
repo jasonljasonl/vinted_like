@@ -1,10 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+
 
 class ProductCreate(BaseModel):
     name: str
     description: str | None = None
     price: float
-
 
 
 class ProductRead(BaseModel):
@@ -13,5 +13,4 @@ class ProductRead(BaseModel):
     description: str | None = None
     price: float
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
