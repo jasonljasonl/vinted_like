@@ -1,13 +1,9 @@
 import os
 import sys
 from typing import List
-
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
 from accounts.account_security import oauth2_scheme, get_current_user
 from database_files.database_connection import get_session
 from products.models import Product
@@ -54,6 +50,20 @@ async def update_product(product_id: int, product: ProductUpdate, session: Sessi
     else:
         raise HTTPException(status_code=401, detail='Not authorized')
     return db_product
+
+
+@router.delete('/{product_id}/delete')
+async def delete_product(product_id: int, session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
+    db_product = session.get(Product, product_id)
+    connected_user = await get_current_user(token, session)
+    if not db_product:
+        raise HTTPException(status_code=404, detail='Product not found')
+    if connected_user.id == db_product.created_by:
+        session.delete(db_product)
+        session.commit()
+    else:
+        raise HTTPException(status_code=401, detail='Not authorized')
+    return {'Product deleted':True}
 
 
 @router.get("/", response_model=List[ProductRead])
