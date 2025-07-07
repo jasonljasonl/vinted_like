@@ -1,6 +1,4 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-
 from base_models.base import Base
 
 

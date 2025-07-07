@@ -64,15 +64,6 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
-"""
-def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
-"""
-
-
-
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)],session: Session = Depends(get_session)):
     credentials_exception = HTTPException()
     try:
@@ -87,8 +78,6 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)],session
     if user is None:
         raise credentials_exception
     return user
-
-
 
 
 async def get_current_active_user(

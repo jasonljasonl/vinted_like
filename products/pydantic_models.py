@@ -9,8 +9,14 @@ class ProductCreate(BaseModel):
 
 class ProductRead(BaseModel):
     id: int
+    created_by: int
     name: str
     description: str | None = None
     price: float
 
     model_config = ConfigDict(from_attributes=True)
+
+class ProductUpdate(BaseModel):
+    name: str | None = None
+    description: str | None = None
+    price: float | None = None
