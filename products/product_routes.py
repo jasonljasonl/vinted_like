@@ -1,13 +1,16 @@
 import os
 import sys
 from typing import List
+
+from sqlalchemy.sql.functions import current_user
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from accounts.account_security import oauth2_scheme, get_current_user
 from database_files.database_connection import get_session
-from products.models import Product
-from products.pydantic_models import ProductRead, ProductCreate, ProductUpdate
+from products.models import Product, ShoppingCart, ShoppingCartItem
+from products.pydantic_models import ProductRead, ProductCreate, ProductUpdate, ShoppingCartRead
 
 router = APIRouter()
 
@@ -66,6 +69,32 @@ async def delete_product(product_id: int, session: Session = Depends(get_session
     return {'Product deleted':True}
 
 
+def get_or_create_cart(user_id: int, session: Session) -> ShoppingCart:
+    cart = session.query(ShoppingCart).filter(ShoppingCart.owner == user_id).first()
+    if not cart:
+        cart = ShoppingCart(owner=user_id)
+        session.add(cart)
+        session.commit()
+        session.refresh(cart)
+    return cart
+
+
+@router.post('/{product_id}/add_to_cart', response_model=ShoppingCartRead)
+async def product_add_to_cart(product_id: int, session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
+    connected_user = await get_current_user(token, session)
+    product = session.get(Product, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    shopping_cart = get_or_create_cart(connected_user.id, session)
+
+    item = ShoppingCartItem(shopping_cart_id=shopping_cart.id, product_id=product.id)
+    session.add(item)
+    session.commit()
+    session.refresh(shopping_cart)
+    return shopping_cart
+
+
 @router.get("/", response_model=List[ProductRead])
 def read_all_product(session: Session = Depends(get_session)):
     db_product = session.query(Product).all()
@@ -73,3 +102,10 @@ def read_all_product(session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="No products.")
     return db_product
 
+
+@router.get('/carts/', response_model=List[ShoppingCartRead])
+def read_all_shopping_cart(session: Session = Depends(get_session)):
+    db_cart = session.query(ShoppingCart).all()
+    if not db_cart:
+        raise HTTPException(status_code=404, detail="No carts.")
+    return db_cart

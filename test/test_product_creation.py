@@ -4,7 +4,6 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from products.models import Product
 from fastapi.testclient import TestClient
-from accounts.account_routes import router, User
 from database_files.database_connection import SessionLocal
 from main import app
 
