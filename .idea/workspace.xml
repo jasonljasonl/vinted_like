@@ -7,10 +7,13 @@
     <list default="true" id="d71c6ee7-8915-4210-b6e6-f4a10dbd14e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/accounts/account_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/account_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/account_security.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/account_security.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/pydantic_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/product_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/product_routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/products/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/products/pydantic_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_product_creation.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_product_creation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,11 +58,16 @@
     "Python tests.Python tests for test_account_connection.test_connect_user.executor": "Run",
     "Python tests.Python tests for test_database_connection.test_database_connection.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/jasonlandim/Documents/vinted_like/statics_files/images"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/statics_files/images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/base_models" />
       <recent name="$PROJECT_DIR$/accounts" />
       <recent name="$PROJECT_DIR$/database_files" />

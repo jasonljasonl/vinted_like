@@ -1,9 +1,8 @@
 from datetime import timedelta, datetime, timezone
 from http.client import HTTPException
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import Mapped, mapped_column
 from sqlmodel import Session
 from typing_extensions import Annotated
 

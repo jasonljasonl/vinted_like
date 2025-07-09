@@ -16,7 +16,7 @@ class UserRead(BaseModel):
     email: str
     name: str | None = None
     lastname: str | None = None
-
+    profile_picture: str | None = None
     model_config = {"from_attributes": True}
 
 class UserInDB(User):

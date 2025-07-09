@@ -1,30 +1,57 @@
 import os
 import sys
+from datetime import datetime
 from typing import List
+from uuid import uuid4
 
-from sqlalchemy.sql.functions import current_user
+from accounts.models import User
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Form, UploadFile, File
 from sqlalchemy.orm import Session
 from accounts.account_security import oauth2_scheme, get_current_user
 from database_files.database_connection import get_session
-from products.models import Product, ShoppingCart, ShoppingCartItem
-from products.pydantic_models import ProductRead, ProductCreate, ProductUpdate, ShoppingCartRead
+from products.models import Product, ShoppingCart, ShoppingCartItem, UserOrder, ProductImage
+from products.pydantic_models import ProductRead, ProductUpdate, ShoppingCartRead,\
+    UserOrderRead
 
 router = APIRouter()
 
 
 @router.post("/add", response_model=ProductRead)
-async def create_product(product: ProductCreate, session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
+async def create_product(
+    name: str = Form(...),
+    description: str = Form(...),
+    price: float = Form(...),
+    product_images: List[UploadFile] = File([]),
+    session: Session = Depends(get_session),
+    token: str = Depends(oauth2_scheme)
+    ):
     user = await get_current_user(token, session)
+
     db_product = Product(
         created_by=user.id,
-        name=product.name,
-        description=product.description,
-        price=product.price,
+        name=name,
+        description=description,
+        price=price,
     )
     session.add(db_product)
+    session.commit()
+    session.refresh(db_product)
+
+    saved_images: list[ProductImage] = []
+    for file in product_images:
+        if not file.content_type.startswith("image/"):
+            continue
+        ext = file.filename.rsplit(".", 1)[-1]
+        file_name = f"{uuid4().hex}.{ext}"
+        image_path = f"statics_files/images/product_images/{file_name}"
+        with open(image_path, "wb") as out:
+            out.write(await file.read())
+        img = ProductImage(product_id=db_product.id, url=image_path)
+        session.add(img)
+        saved_images.append(img)
+
     session.commit()
     session.refresh(db_product)
     return db_product
@@ -79,9 +106,35 @@ def get_or_create_cart(user_id: int, session: Session) -> ShoppingCart:
     return cart
 
 
+async def create_order(connected_user: User, session: Session):
+    shopping_cart = get_or_create_cart(connected_user.id, session)
+
+    db_order = UserOrder(
+        buyer=connected_user.id,
+        shopping_cart_id=shopping_cart.id,
+        created_at=datetime.now()
+    )
+
+    session.add(db_order)
+    session.commit()
+    session.refresh(db_order)
+
+    return db_order
+
+
+@router.post('/orders/', response_model=UserOrderRead)
+async def read_orders(session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
+    connected_user  = await get_current_user(token, session)
+
+    valid_cart = await create_order(connected_user, session)
+
+    return valid_cart
+
+
+
 @router.post('/{product_id}/add_to_cart', response_model=ShoppingCartRead)
 async def product_add_to_cart(product_id: int, session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
-    connected_user = await get_current_user(token, session)
+    connected_user  = await get_current_user(token, session)
     product = session.get(Product, product_id)
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")
@@ -90,9 +143,12 @@ async def product_add_to_cart(product_id: int, session: Session = Depends(get_se
 
     item = ShoppingCartItem(shopping_cart_id=shopping_cart.id, product_id=product.id)
     session.add(item)
+    shopping_cart.total_amount = shopping_cart.total_amount + product.price
+
     session.commit()
     session.refresh(shopping_cart)
     return shopping_cart
+
 
 
 @router.get("/", response_model=List[ProductRead])
@@ -101,11 +157,3 @@ def read_all_product(session: Session = Depends(get_session)):
     if not db_product:
         raise HTTPException(status_code=404, detail="No products.")
     return db_product
-
-
-@router.get('/carts/', response_model=List[ShoppingCartRead])
-def read_all_shopping_cart(session: Session = Depends(get_session)):
-    db_cart = session.query(ShoppingCart).all()
-    if not db_cart:
-        raise HTTPException(status_code=404, detail="No carts.")
-    return db_cart

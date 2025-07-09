@@ -1,16 +1,17 @@
 from datetime import timedelta
 from typing import List
+from uuid import uuid4
 
-from fastapi import Depends, HTTPException, APIRouter
+from fastapi import Depends, HTTPException, APIRouter, Form, UploadFile, File
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from starlette import status
 
 from accounts.account_security import authenticate_user, get_password_hash, \
-    ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, get_current_user, oauth2_scheme
+    ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
 from accounts.models import User
-from accounts.pydantic_models import UserRead, UserCreate, Token
-from database_files.database_connection import engine, get_session
+from accounts.pydantic_models import UserRead, Token
+from database_files.database_connection import get_session
 from products.models import ShoppingCart
 from products.pydantic_models import ShoppingCartRead
 
@@ -18,17 +19,39 @@ router = APIRouter()
 
 
 @router.post("/add", response_model=UserRead)
-def create_user(user: UserCreate, session: Session = Depends(get_session)):
+async def create_user(
+    username: str = Form(...),
+    email: str = Form(...),
+    name: str = Form(...),
+    lastname: str = Form(...),
+    password: str = Form(...),
+    file: UploadFile = File(None),
+    session: Session = Depends(get_session),
+):
+    profile_picture_path = None
+    if file:
+        if not file.content_type.startswith("image/"):
+            raise HTTPException(status_code=400, detail="Not an image.")
+        extension = file.filename.split(".")[-1]
+        file_name = f"{uuid4().hex}.{extension}"
+        image_path = f"statics_files/images/profile_pictures/{file_name}"
+        with open(image_path, "wb") as f:
+            f.write(await file.read())
+        profile_picture_path = image_path
+
     db_user = User(
-        username=user.username,
-        email=user.email,
-        name=user.name,
-        lastname=user.lastname,
-        hashed_password=get_password_hash(user.password)
+        username=username,
+        email=email,
+        name=name,
+        lastname=lastname,
+        profile_picture=profile_picture_path,
+        hashed_password=get_password_hash(password)
     )
+
     session.add(db_user)
     session.commit()
     session.refresh(db_user)
+
     return db_user
 
 
@@ -68,5 +91,12 @@ async def login_for_access_token(
     )
     return Token(access_token=access_token, token_type='bearer')
 
+
+@router.get('/carts/', response_model=List[ShoppingCartRead])
+def read_all_shopping_cart(session: Session = Depends(get_session)):
+    db_cart = session.query(ShoppingCart).all()
+    if not db_cart:
+        raise HTTPException(status_code=404, detail="No carts.")
+    return db_cart
 
 
