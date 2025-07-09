@@ -69,7 +69,7 @@ def read_all_users(session: Session = Depends(get_session)):
     for pr in db_product:
         print(pr.name)
     if not db_product:
-        raise HTTPException(status_code=404, detail="No products.")
+        raise HTTPException(status_code=404, detail="No users.")
     return db_product
 
 

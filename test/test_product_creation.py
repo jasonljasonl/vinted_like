@@ -10,23 +10,45 @@ from main import app
 
 client = TestClient(app)
 
+"""def create_test_user(session):
+    user = User(username="d", hashed_password=get_password_hash("d"), email='d@az.fr')
+    session.add(user)
+    session.commit()
+"""
 def test_create_product():
-    token = 'jdoe'
+    db = SessionLocal()
+#    create_test_user(db)
+    db.close()
+
+    response = client.post("/users/token", data={
+        "username": "d",
+        "password": "d"
+    })
+
+    print("LOGIN STATUS:", response.status_code)
+    print("LOGIN RESPONSE:", response.json())
+    assert response.status_code == 200, f"Erreur login: {response.json()}"
+
+    token = response.json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
 
     payload = {
-        "name": "Product",
-        "description": "My first product",
+        "name": "Test deux",
+        "description": "My test productz",
         "price": 59.99,
     }
 
-    response = client.post('/products/', json=payload, headers=headers)
-    assert response.status_code == 200
+    response = client.post('/products/add', data=payload, headers=headers)
+    print("RESPONSE STATUS:", response.status_code)
+    print("RESPONSE JSON:", response.json())
+
+    assert response.status_code == 200, f"Erreur création produit: {response.json()}"
+
     data = response.json()
-    assert data["name"] == "Product"
+    assert data["name"] == "Test deux"
 
     db = SessionLocal()
-    product_in_db = db.query(Product).filter(Product.name == "Product").first()
+    product_in_db = db.query(Product).filter(Product.name == "Test deux").first()
     assert product_in_db is not None
     assert product_in_db.price == 59.99
     db.close()
