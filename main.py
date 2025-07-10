@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from base_models.base import Base
-from database_files.database_connection import engine
-from accounts.account_routes import router as user_router
-from accounts.account_security import router as auth_router
-from products.product_routes import router as product_router
-from upload_system import router as images_router
+from backend.base_models.base import Base
+from backend.database_files.database_connection import engine
+from backend.accounts.account_routes import router as user_router
+from backend.accounts.account_security import router as auth_router
+from backend.products.product_routes import router as product_router
+from backend.upload_system import router as images_router
 
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
