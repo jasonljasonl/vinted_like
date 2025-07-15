@@ -3,6 +3,8 @@ import Button from './components/Button.tsx'
 import SignUpForm from './components/SignUpForm.tsx'
 import LoginForm from './components/LoginForm.tsx'
 import ProductCreationForm from './components/ProductCreationForm.tsx'
+import ProductListTemplate from './components/ProductListTemplate.tsx'
+
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
         <SignUpForm />
         <LoginForm />
         <ProductCreationForm />
+        <ProductListTemplate />
     </>
   )
 }
