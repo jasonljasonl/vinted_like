@@ -1,11 +1,12 @@
 import sys
 import os
 
+from backend.database_files.database_connection import SessionLocal
+from backend.main import app
+from backend.products.models import Product
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from products.models import Product
 from fastapi.testclient import TestClient
-from database_files.database_connection import SessionLocal
-from main import app
 
 
 client = TestClient(app)

@@ -7,36 +7,36 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from starlette import status
 
-from accounts.account_security import authenticate_user, get_password_hash, \
-    ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token
-from accounts.models import User
-from accounts.pydantic_models import UserRead, Token
-from database_files.database_connection import get_session
-from products.models import ShoppingCart
-from products.pydantic_models import ShoppingCartRead
+from backend.accounts.account_security import get_password_hash, authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, \
+    create_access_token
+from backend.accounts.models import User
+from backend.accounts.pydantic_models import UserRead, Token
+from backend.database_files.database_connection import get_session
+from backend.products.models import ShoppingCart
+from backend.products.pydantic_models import ShoppingCartRead
 
 router = APIRouter()
 
 
-@router.post("/add", response_model=UserRead)
+@router.post("/register", response_model=UserRead)
 async def create_user(
     username: str = Form(...),
     email: str = Form(...),
     name: str = Form(...),
     lastname: str = Form(...),
-    password: str = Form(...),
-    file: UploadFile = File(None),
+    hashed_password: str = Form(...),
+    profilePicture: UploadFile = File(None),
     session: Session = Depends(get_session),
 ):
     profile_picture_path = None
-    if file:
-        if not file.content_type.startswith("image/"):
+    if profilePicture:
+        if not profilePicture.content_type.startswith("image/"):
             raise HTTPException(status_code=400, detail="Not an image.")
-        extension = file.filename.split(".")[-1]
+        extension = profilePicture.filename.split(".")[-1]
         file_name = f"{uuid4().hex}.{extension}"
-        image_path = f"statics_files/images/profile_pictures/{file_name}"
+        image_path = f"backend/statics_files/images/profile_pictures/{file_name}"
         with open(image_path, "wb") as f:
-            f.write(await file.read())
+            f.write(await profilePicture.read())
         profile_picture_path = image_path
 
     db_user = User(
@@ -45,7 +45,7 @@ async def create_user(
         name=name,
         lastname=lastname,
         profile_picture=profile_picture_path,
-        hashed_password=get_password_hash(password)
+        hashed_password=get_password_hash(hashed_password)
     )
 
     session.add(db_user)

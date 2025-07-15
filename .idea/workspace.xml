@@ -5,29 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d71c6ee7-8915-4210-b6e6-f4a10dbd14e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/account_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/account_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/account_security.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/account_security.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/pydantic_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_models/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/base_models/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database_files/database_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database_files/database_connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/product_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/product_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/pydantic_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/r.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/r.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statics_files/images/product_images/11bf2b6c502a456f862e8449aa2b3cad.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/statics_files/images/product_images/11bf2b6c502a456f862e8449aa2b3cad.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statics_files/images/product_images/6cf985fa34444589b4f006be8fc5dc69.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/statics_files/images/product_images/6cf985fa34444589b4f006be8fc5dc69.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statics_files/images/profile_pictures/3adf7ef429c44dbf8172b8b06aac6afe.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/statics_files/images/profile_pictures/3adf7ef429c44dbf8172b8b06aac6afe.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statics_files/images/profile_pictures/7e618f4dfb844602b83e307c2f06a67c.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/statics_files/images/profile_pictures/7e618f4dfb844602b83e307c2f06a67c.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statics_files/images/profile_pictures/efcb25f2b701468099d377733fb4ee0e.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/backend/statics_files/images/profile_pictures/efcb25f2b701468099d377733fb4ee0e.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_account_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/test_account_connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_account_creation.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/test_account_creation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_database_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/test_database_connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_product_creation.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/test_product_creation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload_system.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/upload_system.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/accounts/account_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/account_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/accounts/account_security.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/account_security.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/accounts/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/pydantic_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/database_files/database_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database_files/database_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/products/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/products/product_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/product_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/test/test_account_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/test_account_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/test/test_account_creation.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/test_account_creation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/test/test_database_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/test_database_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/test/test_product_creation.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/test_product_creation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +29,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -69,6 +61,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python tests.Python tests for backend.test.test_account_connection.test_connect_user.executor": "Run",
     "Python tests.Python tests for test_account_connection.test_connect_user.executor": "Run",
     "Python tests.Python tests for test_database_connection.test_database_connection.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -81,11 +74,11 @@
       <recent name="$PROJECT_DIR$/statics_files/images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/backend" />
+      <recent name="$PROJECT_DIR$/frontend" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/backend" />
       <recent name="$PROJECT_DIR$/base_models" />
       <recent name="$PROJECT_DIR$/accounts" />
-      <recent name="$PROJECT_DIR$/database_files" />
     </key>
   </component>
   <component name="RunManager">

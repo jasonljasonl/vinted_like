@@ -4,12 +4,13 @@ from datetime import datetime
 
 from sqlalchemy.orm import relationship
 
+from backend.accounts.models import User
+from backend.base_models.base import Base
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from base_models.base import Base
 from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, DateTime
 
-from accounts.models import User
 
 class ProductImage(Base):
     __tablename__ = "product_image"
@@ -19,6 +20,7 @@ class ProductImage(Base):
     url = Column(String, nullable=False)
 
     product = relationship("Product", back_populates="product_images")
+    extend_existing = True
 
 
 class Product(Base):
@@ -30,6 +32,7 @@ class Product(Base):
     description = Column(Text)
     price = Column(Float)
     product_images = relationship("ProductImage", back_populates="product", cascade="all, delete-orphan")
+    extend_existing = True
 
 class ShoppingCartItem(Base):
     __tablename__ = "shopping_cart_items"
@@ -39,6 +42,7 @@ class ShoppingCartItem(Base):
 
     shopping_cart = relationship("ShoppingCart", back_populates="items")
     product = relationship("Product")
+    extend_existing = True
 
 
 class ShoppingCart(Base):
@@ -50,6 +54,7 @@ class ShoppingCart(Base):
     items = relationship("ShoppingCartItem", back_populates="shopping_cart", cascade="all, delete-orphan")
     total_amount = Column(Float, default=0.0)
     orders = relationship('UserOrder', back_populates='related_shopping_cart')
+    extend_existing = True
 
 
 class UserOrder(Base):
@@ -62,3 +67,4 @@ class UserOrder(Base):
 
     related_shopping_cart = relationship('ShoppingCart')
     buyer_user = relationship('User', back_populates='orders')
+    extend_existing = True

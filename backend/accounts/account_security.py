@@ -6,13 +6,13 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlmodel import Session
 from typing_extensions import Annotated
 
-from accounts.models import User
 from passlib.context import CryptContext
 import jwt
 from jwt.exceptions import InvalidTokenError
 
-from accounts.pydantic_models import TokenData, UserInDB
-from database_files.database_connection import get_session
+from backend.accounts.models import User
+from backend.accounts.pydantic_models import TokenData
+from backend.database_files.database_connection import get_session
 
 router = APIRouter()
 

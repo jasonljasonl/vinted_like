@@ -1,9 +1,11 @@
 import sys
 import os
+
+from backend.main import app
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from fastapi.testclient import TestClient
-from main import app
 client = TestClient(app)
 
 def test_connect_user():

@@ -4,9 +4,11 @@ import os
 import pytest
 from sqlalchemy import text
 from sqlalchemy.exc import OperationalError
+
+from backend.database_files.database_connection import engine
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from database_files.database_connection import engine
 
 
 def test_database_connection():

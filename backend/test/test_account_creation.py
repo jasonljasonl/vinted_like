@@ -1,9 +1,11 @@
 import sys
 import os
+
+from backend.upload_system import router
+
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from fastapi.testclient import TestClient
-from accounts.account_routes import router
 
 client = TestClient(router)
 

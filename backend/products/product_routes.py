@@ -4,15 +4,15 @@ from datetime import datetime
 from typing import List
 from uuid import uuid4
 
-from accounts.models import User
+from backend.accounts.models import User
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from fastapi import APIRouter, Depends, HTTPException, Form, UploadFile, File
 from sqlalchemy.orm import Session
-from accounts.account_security import oauth2_scheme, get_current_user
-from database_files.database_connection import get_session
-from products.models import Product, ShoppingCart, ShoppingCartItem, UserOrder, ProductImage
-from products.pydantic_models import ProductRead, ProductUpdate, ShoppingCartRead,\
+from backend.accounts.account_security import oauth2_scheme, get_current_user
+from backend.database_files.database_connection import get_session
+from backend.products.models import Product, ShoppingCart, ShoppingCartItem, UserOrder, ProductImage
+from backend.products.pydantic_models import ProductRead, ProductUpdate, ShoppingCartRead,\
     UserOrderRead
 
 router = APIRouter()
@@ -45,7 +45,7 @@ async def create_product(
             continue
         ext = file.filename.rsplit(".", 1)[-1]
         file_name = f"{uuid4().hex}.{ext}"
-        image_path = f"statics_files/images/product_images/{file_name}"
+        image_path = f"backend/statics_files/images/product_images/{file_name}"
         with open(image_path, "wb") as out:
             out.write(await file.read())
         img = ProductImage(product_id=db_product.id, url=image_path)

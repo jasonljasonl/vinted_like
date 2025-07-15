@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from sqlalchemy.orm import Mapped, mapped_column
-from accounts.models import User
+
+from backend.accounts.models import User
 
 
 class UserCreate(BaseModel):
@@ -19,8 +20,7 @@ class UserRead(BaseModel):
     profile_picture: str | None = None
     model_config = {"from_attributes": True}
 
-class UserInDB(User):
-    hash_password: Mapped[str] = mapped_column()
+
 
 class Token(BaseModel):
     access_token: str
