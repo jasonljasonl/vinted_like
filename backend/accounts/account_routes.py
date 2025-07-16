@@ -13,7 +13,7 @@ from backend.accounts.models import User
 from backend.accounts.pydantic_models import UserRead, Token
 from backend.database_files.database_connection import get_session
 from backend.products.models import ShoppingCart, ShoppingCartItem
-from backend.products.product_routes import get_or_create_cart
+from backend.products.product_routes import get_or_create_cart, update_cart_total
 from backend.products.pydantic_models import ShoppingCartRead, ShoppingCartItemRead
 
 router = APIRouter()
@@ -93,7 +93,7 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type='bearer')
 
 
-@router.get('/cart/', response_model=List[ShoppingCartRead])
+@router.get('/cart/', response_model=ShoppingCartRead)
 async def read_user_cart(session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
     user = await get_current_user(token, session)
     cart = get_or_create_cart(user.id, session)
@@ -115,13 +115,21 @@ async def get_cart_items(
 
     return items
 
+
 @router.delete('/cart/items/{item_id}')
 def remove_cart_item(item_id: int, session: Session = Depends(get_session)):
     cart_item = session.query(ShoppingCartItem).filter(ShoppingCartItem.id == item_id).first()
     if not cart_item:
         raise HTTPException(status_code=404, detail='Not found')
 
+    shopping_cart = session.get(ShoppingCart, cart_item.shopping_cart_id)
+    if shopping_cart is None:
+        raise HTTPException(status_code=404, detail="Shopping cart not found")
+
     session.delete(cart_item)
+    session.commit()
+
+    update_cart_total(shopping_cart, session)
     session.commit()
 
     return {"message": f"Item {item_id} removed"}

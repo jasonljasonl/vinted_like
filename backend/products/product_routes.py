@@ -4,6 +4,8 @@ from datetime import datetime
 from typing import List
 from uuid import uuid4
 
+from sqlalchemy import delete
+
 from backend.accounts.models import User
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
@@ -119,6 +121,11 @@ async def place_order_from_cart(connected_user: User, session: Session):
     session.commit()
     session.refresh(db_order)
 
+    session.execute(
+        delete(ShoppingCartItem).where(ShoppingCartItem.shopping_cart_id == shopping_cart.id)
+    )
+    session.commit()
+
     return db_order
 
 
@@ -130,6 +137,17 @@ async def submit_order(session: Session = Depends(get_session), token: str = Dep
 
     return valid_cart
 
+
+def update_cart_total(cart: ShoppingCart, session: Session):
+    items = session.query(ShoppingCartItem).filter(ShoppingCartItem.shopping_cart_id == cart.id).all()
+
+    total = 0
+    for item in items:
+        product = session.get(Product, item.product_id)
+        if product:
+            total += product.price
+
+    cart.total_amount = total
 
 
 @router.post('/{product_id}/add_to_cart', response_model=ShoppingCartRead)
@@ -143,12 +161,14 @@ async def product_add_to_cart(product_id: int, session: Session = Depends(get_se
 
     item = ShoppingCartItem(shopping_cart_id=shopping_cart.id, product_id=product.id)
     session.add(item)
-    shopping_cart.total_amount = shopping_cart.total_amount + product.price
+    session.commit()
+
+    update_cart_total(shopping_cart, session)
 
     session.commit()
     session.refresh(shopping_cart)
-    return shopping_cart
 
+    return shopping_cart
 
 
 @router.get("/", response_model=List[ProductRead])
