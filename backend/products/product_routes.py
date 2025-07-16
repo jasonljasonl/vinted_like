@@ -106,7 +106,7 @@ def get_or_create_cart(user_id: int, session: Session) -> ShoppingCart:
     return cart
 
 
-async def create_order(connected_user: User, session: Session):
+async def place_order_from_cart(connected_user: User, session: Session):
     shopping_cart = get_or_create_cart(connected_user.id, session)
 
     db_order = UserOrder(
@@ -123,10 +123,10 @@ async def create_order(connected_user: User, session: Session):
 
 
 @router.post('/orders/', response_model=UserOrderRead)
-async def read_orders(session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
+async def submit_order(session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
     connected_user  = await get_current_user(token, session)
 
-    valid_cart = await create_order(connected_user, session)
+    valid_cart = await place_order_from_cart(connected_user, session)
 
     return valid_cart
 

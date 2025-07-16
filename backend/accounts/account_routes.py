@@ -8,12 +8,13 @@ from sqlalchemy.orm import Session
 from starlette import status
 
 from backend.accounts.account_security import get_password_hash, authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, \
-    create_access_token
+    create_access_token, oauth2_scheme, get_current_user
 from backend.accounts.models import User
 from backend.accounts.pydantic_models import UserRead, Token
 from backend.database_files.database_connection import get_session
-from backend.products.models import ShoppingCart
-from backend.products.pydantic_models import ShoppingCartRead
+from backend.products.models import ShoppingCart, ShoppingCartItem
+from backend.products.product_routes import get_or_create_cart
+from backend.products.pydantic_models import ShoppingCartRead, ShoppingCartItemRead
 
 router = APIRouter()
 
@@ -92,11 +93,35 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type='bearer')
 
 
-@router.get('/carts/', response_model=List[ShoppingCartRead])
-def read_all_shopping_cart(session: Session = Depends(get_session)):
-    db_cart = session.query(ShoppingCart).all()
-    if not db_cart:
-        raise HTTPException(status_code=404, detail="No carts.")
-    return db_cart
+@router.get('/cart/', response_model=List[ShoppingCartRead])
+async def read_user_cart(session: Session = Depends(get_session), token: str = Depends(oauth2_scheme)):
+    user = await get_current_user(token, session)
+    cart = get_or_create_cart(user.id, session)
+
+    return cart
 
 
+@router.get('/cart/items', response_model=List[ShoppingCartItemRead])
+async def get_cart_items(
+    session: Session = Depends(get_session),
+    token: str = Depends(oauth2_scheme)
+):
+    user = await get_current_user(token, session)
+    cart = get_or_create_cart(user.id, session)
+
+    items = session.query(ShoppingCartItem).filter(
+        ShoppingCartItem.shopping_cart_id == cart.id
+    ).all()
+
+    return items
+
+@router.delete('/cart/items/{item_id}')
+def remove_cart_item(item_id: int, session: Session = Depends(get_session)):
+    cart_item = session.query(ShoppingCartItem).filter(ShoppingCartItem.id == item_id).first()
+    if not cart_item:
+        raise HTTPException(status_code=404, detail='Not found')
+
+    session.delete(cart_item)
+    session.commit()
+
+    return {"message": f"Item {item_id} removed"}

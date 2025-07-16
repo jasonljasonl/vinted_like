@@ -4,7 +4,7 @@ import SignUpForm from './components/SignUpForm.tsx'
 import LoginForm from './components/LoginForm.tsx'
 import ProductCreationForm from './components/ProductCreationForm.tsx'
 import ProductListTemplate from './components/ProductListTemplate.tsx'
-
+import CartTemplate from './components/CartTemplate.tsx'
 
 function App() {
 
@@ -18,6 +18,7 @@ function App() {
         <LoginForm />
         <ProductCreationForm />
         <ProductListTemplate />
+        <CartTemplate />
     </>
   )
 }
