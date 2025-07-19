@@ -1,6 +1,7 @@
 import os
 import sys
 from datetime import datetime
+from itertools import product
 from typing import List
 from uuid import uuid4
 
@@ -177,3 +178,12 @@ def read_all_product(session: Session = Depends(get_session)):
     if not db_product:
         raise HTTPException(status_code=404, detail="No products.")
     return db_product
+
+
+@router.get('/user/{user_id}/', response_model=List[ProductRead])
+def read_user_product(user_id: int, session: Session = Depends(get_session)):
+    db_product = session.query(Product).filter(Product.created_by == user_id).all()
+    if not db_product:
+        raise HTTPException(status_code=404, detail="Products not found")
+    return db_product
+

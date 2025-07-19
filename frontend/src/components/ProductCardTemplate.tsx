@@ -67,7 +67,7 @@ export default function ProductCardTemplate({ product }: ProductCardProps) {
           <img
             src={imageUrl}
             alt={product.name}
-            className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-80"
+            className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 "
           />
           <h2 className="mt-4 text-sm text-gray-700">{product.name}</h2>
           <p className="mt-1 text-lg font-medium text-gray-900">{product.price} €</p>

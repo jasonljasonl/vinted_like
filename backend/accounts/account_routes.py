@@ -133,3 +133,9 @@ def remove_cart_item(item_id: int, session: Session = Depends(get_session)):
     session.commit()
 
     return {"message": f"Item {item_id} removed"}
+
+
+@router.get('/me/', response_model=UserRead)
+async def get_me(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
+    user = await get_current_user(token, session)
+    return user
