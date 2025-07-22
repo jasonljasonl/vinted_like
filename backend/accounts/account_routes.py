@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import List
 from uuid import uuid4
 
-from fastapi import Depends, HTTPException, APIRouter, Form, UploadFile, File
+from fastapi import Depends, HTTPException, APIRouter, Form, UploadFile, File, Query
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from starlette import status
@@ -63,6 +63,12 @@ def read_user(user_username: str, session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
+@router.get("/id/{user_id}", response_model=UserRead)
+def read_user_by_id(user_id: int, session: Session = Depends(get_session)):
+    db_user = session.query(User).filter(User.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_user
 
 @router.get("/", response_model=List[UserRead])
 def read_all_users(session: Session = Depends(get_session)):
@@ -72,6 +78,7 @@ def read_all_users(session: Session = Depends(get_session)):
     if not db_product:
         raise HTTPException(status_code=404, detail="No users.")
     return db_product
+
 
 
 @router.post('/token')
@@ -139,3 +146,8 @@ def remove_cart_item(item_id: int, session: Session = Depends(get_session)):
 async def get_me(token: str = Depends(oauth2_scheme), session: Session = Depends(get_session)):
     user = await get_current_user(token, session)
     return user
+
+
+@router.get("/search/")
+def search_users(query: str = Query(...), session: Session = Depends(get_session)):
+    return session.query(User).filter(User.username.ilike(f"%{query}%")).all()

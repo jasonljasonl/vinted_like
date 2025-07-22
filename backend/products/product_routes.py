@@ -10,7 +10,7 @@ from sqlalchemy import delete
 from backend.accounts.models import User
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from fastapi import APIRouter, Depends, HTTPException, Form, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException, Form, UploadFile, File, Query
 from sqlalchemy.orm import Session
 from backend.accounts.account_security import oauth2_scheme, get_current_user
 from backend.database_files.database_connection import get_session
@@ -183,7 +183,9 @@ def read_all_product(session: Session = Depends(get_session)):
 @router.get('/user/{user_id}/', response_model=List[ProductRead])
 def read_user_product(user_id: int, session: Session = Depends(get_session)):
     db_product = session.query(Product).filter(Product.created_by == user_id).all()
-    if not db_product:
-        raise HTTPException(status_code=404, detail="Products not found")
     return db_product
 
+
+@router.get("/search/")
+def search_products(query: str = Query(...), session: Session = Depends(get_session)):
+    return session.query(Product).filter(Product.name.ilike(f"%{query}%")).all()
