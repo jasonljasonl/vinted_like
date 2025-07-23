@@ -189,7 +189,7 @@ def read_all_product(session: Session = Depends(get_session)):
 
 @router.get('/user/{user_id}/', response_model=List[ProductRead])
 def read_user_product(user_id: int, session: Session = Depends(get_session)):
-    db_product = session.query(Product).filter(Product.is_active == True).all()
+    db_product = session.query(Product).filter(Product.is_active == True, Product.created_by == user_id).all()
     return db_product
 
 

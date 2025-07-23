@@ -6,19 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d71c6ee7-8915-4210-b6e6-f4a10dbd14e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/accounts/account_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/account_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/accounts/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/pydantic_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/products/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/products/product_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/product_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/products/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/pydantic_models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/r.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/r.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/CartTemplate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/CartTemplate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Pages/UserProfilePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Pages/UserProfilePage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ProductUpdateForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ProductUpdateForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ProductViewTemplate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ProductViewTemplate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
