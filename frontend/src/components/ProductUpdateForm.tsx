@@ -89,13 +89,14 @@ const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
   }
 
   try {
-    const res = await fetch(`${API_BASE_URL}${productId}/delete`, {
-      method: 'DELETE',
+    const res = await fetch(`${API_BASE_URL}${productId}/disable`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
+
 
     if (res.ok) {
       const result = await res.json();

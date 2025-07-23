@@ -3,6 +3,7 @@ import { useState } from 'react';
 import MenuLink from './MenuLink.tsx';
 import UserViewComponent from './UserViewComponent.tsx'
 
+
 export default function Menu() {
       const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -19,11 +20,12 @@ export default function Menu() {
             <nav className="flex flex-col justify-between h-full p-4">
                 <div className="space-y-2">
                     <MenuLink icon="material-symbols:dashboard-outline" label="Dashboard" to="/dashboard" />
-                    <MenuLink icon="material-symbols:description-outline" label="Orders" to="/" />
+                    <MenuLink icon="material-symbols:description-outline" label="Orders" to="/orders" />
                     <MenuLink icon="material-symbols:search" label="Browse products" to="/browse-products" />
                     <MenuLink icon="material-symbols:favorite-outline" label="Wishlist" to="/" />
                     <MenuLink icon="material-symbols:settings" label="Settings" to="/" />
                     <MenuLink icon="material-symbols:help-outline" label="Need help?" to="/" />
+
                 </div>
                 <div className="pt-4 mt-4">
                     <UserViewComponent />

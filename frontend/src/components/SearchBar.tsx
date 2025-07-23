@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from './Button.jsx';
+import CartTemplate from './CartTemplate.tsx'
 
 const API_BASE_URL = 'http://localhost:8000/';
 
@@ -69,7 +70,7 @@ export default function SearchBar() {
           <Button label="+ Add product" variant="primary" size="lg" to="/add-product" />
         </div>
         <div className="mx-2">
-          <Button label="Delete" variant="danger" size="lg" to="/add-product" />
+          <CartTemplate />
         </div>
       </div>
 
@@ -80,9 +81,11 @@ export default function SearchBar() {
               <p className="font-bold mb-1">Products</p>
               <ul className="mb-3">
                 {products.map((product) => (
+                <a href={`/products/${product.id}`}>
                   <li key={product.id} className="hover:bg-gray-100 p-1 cursor-pointer">
-                    <a href={`/products/${product.id}`}>{product.name}</a>
+                    {product.name}
                   </li>
+                </a>
                 ))}
               </ul>
             </>
@@ -93,6 +96,7 @@ export default function SearchBar() {
               <p className="font-bold mb-1">Users</p>
               <ul>
                 {users.map((user) => (
+                <a href={`/users/id/${user.id}`}>
                   <li key={user.id} className="hover:bg-gray-100 p-1 cursor-pointer flex items-center gap-2">
                     {user.profile_picture && (
                       <img
@@ -101,8 +105,9 @@ export default function SearchBar() {
                         className="w-6 h-6 rounded-full object-cover"
                       />
                     )}
-                    <a href={`/users/id/${user.id}`}>{user.username}</a>
+                    {user.username}
                   </li>
+                </a>
                 ))}
               </ul>
             </>

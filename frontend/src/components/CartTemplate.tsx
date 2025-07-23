@@ -3,6 +3,7 @@ import { Dialog, DialogPanel, DialogTitle, DialogBackdrop } from '@headlessui/re
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import ItemTemplate from './ItemTemplate';
 import type { ShoppingCartItem } from './ItemTemplate';
+import { Icon } from '@iconify/react';
 
 const API_BASE_URL = 'http://localhost:8000/';
 
@@ -89,7 +90,7 @@ export default function CartTemplate() {
         onClick={() => setOpen(true)}
         className="rounded-md bg-gray-950/5 px-2.5 py-1.5 text-sm font-semibold text-gray-900 hover:bg-gray-950/10"
       >
-        Open drawer
+        <Icon icon='material-symbols:shopping-cart-outline' className="text-gray-500 text-2xl" />
       </button>
 
       <Dialog open={open} onClose={setOpen} className="relative z-10">

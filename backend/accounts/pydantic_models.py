@@ -1,7 +1,8 @@
-from pydantic import BaseModel
-from sqlalchemy.orm import Mapped, mapped_column
+from typing import List
 
-from backend.accounts.models import User
+from pydantic import BaseModel
+
+from backend.products.pydantic_models import UserOrderRead
 
 
 class UserCreate(BaseModel):
@@ -19,6 +20,7 @@ class UserRead(BaseModel):
     lastname: str | None = None
     profile_picture: str | None = None
     model_config = {"from_attributes": True}
+    orders : List[UserOrderRead] = []
 
 
 

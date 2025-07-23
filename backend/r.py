@@ -1,6 +1,7 @@
 from sqlalchemy import text
-from base_models.base import Base
+
 from database_files.database_connection import engine
+from base_models.base import Base
 
 def reset_db():
     with engine.connect() as conn:

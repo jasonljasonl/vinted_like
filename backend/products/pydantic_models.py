@@ -54,11 +54,19 @@ class UserOrderCreate(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class OrderedItemRead(BaseModel):
+    id: int
+    product: ProductRead
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class UserOrderRead(BaseModel):
     id: int
     buyer: int
     shopping_cart_id: int
     created_at: datetime
+    items: list[OrderedItemRead]
     related_shopping_cart: ShoppingCartRead
 
     model_config = ConfigDict(from_attributes=True)

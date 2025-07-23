@@ -1,7 +1,6 @@
 import os
 import sys
 from datetime import datetime
-from itertools import product
 from typing import List
 from uuid import uuid4
 
@@ -14,7 +13,7 @@ from fastapi import APIRouter, Depends, HTTPException, Form, UploadFile, File, Q
 from sqlalchemy.orm import Session
 from backend.accounts.account_security import oauth2_scheme, get_current_user
 from backend.database_files.database_connection import get_session
-from backend.products.models import Product, ShoppingCart, ShoppingCartItem, UserOrder, ProductImage
+from backend.products.models import Product, ShoppingCart, ShoppingCartItem, UserOrder, ProductImage, OrderedItem
 from backend.products.pydantic_models import ProductRead, ProductUpdate, ShoppingCartRead,\
     UserOrderRead
 
@@ -114,17 +113,25 @@ async def place_order_from_cart(connected_user: User, session: Session):
 
     db_order = UserOrder(
         buyer=connected_user.id,
-        shopping_cart_id=shopping_cart.id,
-        created_at=datetime.now()
+        created_at=datetime.now(),
+        shopping_cart_id = shopping_cart.id
     )
-
     session.add(db_order)
     session.commit()
     session.refresh(db_order)
 
-    session.execute(
-        delete(ShoppingCartItem).where(ShoppingCartItem.shopping_cart_id == shopping_cart.id)
-    )
+    items = session.query(ShoppingCartItem).filter(
+        ShoppingCartItem.shopping_cart_id == shopping_cart.id
+    ).all()
+
+    for item in items:
+        ordered_item = OrderedItem(order_id=db_order.id, product_id=item.product_id)
+        session.add(ordered_item)
+
+    session.query(ShoppingCartItem).filter(
+        ShoppingCartItem.shopping_cart_id == shopping_cart.id
+    ).delete()
+
     session.commit()
 
     return db_order
@@ -174,7 +181,7 @@ async def product_add_to_cart(product_id: int, session: Session = Depends(get_se
 
 @router.get("/", response_model=List[ProductRead])
 def read_all_product(session: Session = Depends(get_session)):
-    db_product = session.query(Product).all()
+    db_product = session.query(Product).filter(Product.is_active == True).all()
     if not db_product:
         raise HTTPException(status_code=404, detail="No products.")
     return db_product
@@ -182,10 +189,37 @@ def read_all_product(session: Session = Depends(get_session)):
 
 @router.get('/user/{user_id}/', response_model=List[ProductRead])
 def read_user_product(user_id: int, session: Session = Depends(get_session)):
-    db_product = session.query(Product).filter(Product.created_by == user_id).all()
+    db_product = session.query(Product).filter(Product.is_active == True).all()
     return db_product
 
 
 @router.get("/search/")
 def search_products(query: str = Query(...), session: Session = Depends(get_session)):
     return session.query(Product).filter(Product.name.ilike(f"%{query}%")).all()
+
+
+@router.put("/{product_id}/disable")
+def disable_product(product_id: int, session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
+    product = session.get(Product, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not fount")
+
+    if product.created_by != current_user.id:
+        raise HTTPException(status_code=403, detail="Unauthorized")
+
+    product.is_active = False
+    session.commit()
+    return {"message": "Product deactived"}
+
+@router.put("/{product_id}/enable")
+def enable_product(product_id: int, session: Session = Depends(get_session), current_user: User = Depends(get_current_user)):
+    product = session.get(Product, product_id)
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    if product.created_by != current_user.id:
+        raise HTTPException(status_code=403, detail="Unauthorized")
+
+    product.is_active = True
+    session.commit()
+    return {"message": "Product reactivated"}

@@ -2,14 +2,14 @@ import os
 import sys
 from datetime import datetime
 
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, mapped_column
 
 from backend.accounts.models import User
 from backend.base_models.base import Base
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey, DateTime, Boolean
 
 
 class ProductImage(Base):
@@ -32,6 +32,7 @@ class Product(Base):
     description = Column(Text)
     price = Column(Float)
     product_images = relationship("ProductImage", back_populates="product", cascade="all, delete-orphan")
+    is_active = Column(Boolean, default=True)
     extend_existing = True
 
 class ShoppingCartItem(Base):
@@ -66,5 +67,17 @@ class UserOrder(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
     related_shopping_cart = relationship('ShoppingCart')
+    items = relationship("OrderedItem", back_populates="order")
+
     buyer_user = relationship('User', back_populates='orders')
     extend_existing = True
+
+
+class OrderedItem(Base):
+    __tablename__ = "ordered_items"
+    id = mapped_column(Integer, primary_key=True, index=True)
+    order_id = mapped_column(ForeignKey("user_order.id"))
+    product_id = mapped_column(ForeignKey("product.id"))
+
+    order = relationship("UserOrder", back_populates="items")
+    product = relationship("Product")

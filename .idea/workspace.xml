@@ -7,15 +7,17 @@
     <list default="true" id="d71c6ee7-8915-4210-b6e6-f4a10dbd14e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/accounts/account_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/account_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/accounts/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/accounts/pydantic_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/products/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/products/product_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/product_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/products/pydantic_models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/products/pydantic_models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/r.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/r.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Dashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Dashboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LoginForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/CartTemplate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/CartTemplate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ProductCardTemplate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ProductCardTemplate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ProductListTemplate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ProductListTemplate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Pages/UserProfilePage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Pages/UserProfilePage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ProductUpdateForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ProductUpdateForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ProductViewTemplate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ProductViewTemplate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/SearchBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SearchBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,16 +59,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python tests.Python tests for backend.test.test_account_connection.test_connect_user.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_account_connection.test_connect_user.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for test_database_connection.test_database_connection.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/jasonlandim/Documents/vinted_like/statics_files/images&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests for backend.test.test_account_connection.test_connect_user.executor": "Run",
+    "Python tests.Python tests for test_account_connection.test_connect_user.executor": "Run",
+    "Python tests.Python tests for test_database_connection.test_database_connection.executor": "Run",
+    "Python.r.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/jasonlandim/Documents/vinted_like/statics_files/images"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/statics_files/images" />
@@ -79,7 +82,29 @@
       <recent name="$PROJECT_DIR$/accounts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for backend.test.test_account_connection.test_connect_user">
+  <component name="RunManager" selected="Python.r">
+    <configuration name="r" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="vinted_like" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/backend" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backend/r.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Python tests for backend.test.test_account_connection.test_connect_user" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="vinted_like" />
       <option name="ENV_FILES" value="" />
@@ -112,6 +137,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.r" />
         <item itemvalue="Python tests.Python tests for backend.test.test_account_connection.test_connect_user" />
         <item itemvalue="Python tests.Python tests for backend.test.test_database_connection.test_database_connection" />
       </list>

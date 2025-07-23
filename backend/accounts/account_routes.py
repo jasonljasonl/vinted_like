@@ -4,7 +4,7 @@ from uuid import uuid4
 
 from fastapi import Depends, HTTPException, APIRouter, Form, UploadFile, File, Query
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload, selectinload
 from starlette import status
 
 from backend.accounts.account_security import get_password_hash, authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, \
@@ -12,9 +12,9 @@ from backend.accounts.account_security import get_password_hash, authenticate_us
 from backend.accounts.models import User
 from backend.accounts.pydantic_models import UserRead, Token
 from backend.database_files.database_connection import get_session
-from backend.products.models import ShoppingCart, ShoppingCartItem
+from backend.products.models import ShoppingCart, ShoppingCartItem, UserOrder, Product
 from backend.products.product_routes import get_or_create_cart, update_cart_total
-from backend.products.pydantic_models import ShoppingCartRead, ShoppingCartItemRead
+from backend.products.pydantic_models import ShoppingCartRead, ShoppingCartItemRead, UserOrderRead
 
 router = APIRouter()
 
@@ -151,3 +151,20 @@ async def get_me(token: str = Depends(oauth2_scheme), session: Session = Depends
 @router.get("/search/")
 def search_users(query: str = Query(...), session: Session = Depends(get_session)):
     return session.query(User).filter(User.username.ilike(f"%{query}%")).all()
+
+
+@router.get("/orders/", response_model=List[UserOrderRead])
+async def get_my_orders(
+        session: Session = Depends(get_session),
+        token: str = Depends(oauth2_scheme)
+):
+    user = await get_current_user(token, session)
+
+    orders = session.query(UserOrder).filter(UserOrder.buyer == user.id) \
+        .options(
+        selectinload(UserOrder.related_shopping_cart)
+        .selectinload(ShoppingCart.items)
+        .selectinload(ShoppingCartItem.product)
+    ).all()
+
+    return orders

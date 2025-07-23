@@ -132,6 +132,8 @@ export default function ProductViewTemplate({ productId }: ProductViewTemplatePr
                 <div className="mt-4 border-b-2">
 
                 </div>
+                {creator && (
+                    <a href={`/users/id/${creator.id}`}>
                       <div className="mt-4 flex items-center gap-2">
                         {creator?.profile_picture && (
                           <img
@@ -145,7 +147,8 @@ export default function ProductViewTemplate({ productId }: ProductViewTemplatePr
                             <p> {creator?.username || 'Unknown user'}</p>
                         </div>
                       </div>
-
+                  </a>
+                )}
                 </div>
             </div>
   );
