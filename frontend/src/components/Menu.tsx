@@ -23,7 +23,7 @@ export default function Menu() {
                     <MenuLink icon="material-symbols:description-outline" label="Orders" to="/orders" />
                     <MenuLink icon="material-symbols:search" label="Browse products" to="/browse-products" />
                     <MenuLink icon="material-symbols:favorite-outline" label="Wishlist" to="/" />
-                    <MenuLink icon="material-symbols:settings" label="Settings" to="/" />
+                    <MenuLink icon="material-symbols:settings" label="Settings" to="/settings" />
                     <MenuLink icon="material-symbols:help-outline" label="Need help?" to="/" />
 
                 </div>

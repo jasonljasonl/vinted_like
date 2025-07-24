@@ -168,3 +168,43 @@ async def get_my_orders(
     ).all()
 
     return orders
+
+
+@router.put("/me/update", response_model=UserRead)
+async def update_user_profile(
+    username: str = Form(None),
+    email: str = Form(None),
+    name: str = Form(None),
+    lastname: str = Form(None),
+    new_password: str = Form(None),
+    profilePicture: UploadFile = File(None),
+    session: Session = Depends(get_session),
+    token: str = Depends(oauth2_scheme)
+):
+    user = await get_current_user(token, session)
+
+    if username:
+        user.username = username
+    if email:
+        user.email = email
+    if name:
+        user.name = name
+    if lastname:
+        user.lastname = lastname
+    if new_password:
+        user.hashed_password = get_password_hash(new_password)
+
+    if profilePicture:
+        if not profilePicture.content_type.startswith("image/"):
+            raise HTTPException(status_code=400, detail="File is not an image.")
+        extension = profilePicture.filename.split(".")[-1]
+        file_name = f"{uuid4().hex}.{extension}"
+        image_path = f"backend/statics_files/images/profile_pictures/{file_name}"
+        with open(image_path, "wb") as f:
+            f.write(await profilePicture.read())
+        user.profile_picture = image_path
+
+    session.commit()
+    session.refresh(user)
+
+    return user

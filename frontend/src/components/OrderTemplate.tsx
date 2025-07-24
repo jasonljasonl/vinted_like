@@ -73,12 +73,11 @@ export default function OrderTemplate() {
 
     return (
         <div>
-            <h1>Orders</h1>
             {orders.map(order => {
                  const totalAmount = order.items.reduce((sum, item) => sum + item.product.price, 0);
 
                 return (
-                    <div key={order.id} className='p-2 m-2 border'>
+                    <div key={order.id} className='p-2 m-4 border'>
                         <p><strong>Order ID:</strong> {order.id}</p>
                         <p><strong>Date:</strong> {new Date(order.created_at).toLocaleString()}</p>
                         <p><strong>Total:</strong> {totalAmount.toFixed(2)} €</p>

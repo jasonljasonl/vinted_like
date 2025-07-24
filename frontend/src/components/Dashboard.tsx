@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import ProductListTemplate from './ProductListTemplate.tsx'
 import Menu from './Menu.tsx'
 import SearchBar from './SearchBar.tsx'
-import LoginForm from './LoginForm.tsx'
 
 const API_BASE_URL = 'http://localhost:8000/users/'
 
@@ -44,7 +43,6 @@ export default function Dashboard({ userId: propUserId }: DashboardProps) {
           <SearchBar />
         <div className='pt-8'>
           <ProductListTemplate userId={userId ?? undefined} />
-          <LoginForm />
         </div>
       </main>
     </div>

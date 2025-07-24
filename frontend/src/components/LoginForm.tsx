@@ -117,6 +117,12 @@ const LoginForm: React.FC = () => {
           <Button label='Login' variant='primary' size='lg' type='submit' />
         </div>
       </form>
+        <p className="mt-2 text-center text-sm/6 text-gray-500">
+        Not registered?{' '}
+            <a href="/register" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                Register
+            </a>
+        </p>
     </div>
   );
 };

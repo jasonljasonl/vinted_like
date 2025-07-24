@@ -155,7 +155,7 @@ const SignUpForm: React.FC = () => {
 
             <p className="mt-2 text-center text-sm/6 text-gray-500">
                 Already registered?{' '}
-                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                <a href="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
                 Sign in
             </a>
           </p>

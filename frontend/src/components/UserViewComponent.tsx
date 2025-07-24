@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import MenuLink from './MenuLink.tsx';
+
 
 const API_BASE_URL = 'http://localhost:8000/';
 
@@ -44,7 +46,7 @@ export default function UserViewComponent() {
     }, []);
 
     if (!user) {
-        return <p>User loading...</p>;
+        return <MenuLink icon="material-symbols:account-circle-outline" label="Sign in" to="/login" />;
     }
 
 
