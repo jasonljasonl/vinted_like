@@ -43,6 +43,12 @@ Vinted Like is powered by a modern Python and TypeScript stack, built for clarit
 
 ---
 
+## 🚀 Project Management
+
+* **Jira**: Used for agile project management, including sprint planning and task tracking.
+
+---
+
 ## 📦 Future Plans
 
 * ✅ Add product categories and filters
