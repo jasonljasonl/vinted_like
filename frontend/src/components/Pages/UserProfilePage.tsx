@@ -1,10 +1,11 @@
 import UserProfileComponent from '../UserProfileComponent.tsx';
+import Layout from '../Layout.tsx'
 
 export default function ProductViewPage() {
 
   return (
-    <div>
+    <Layout>
         <UserProfileComponent />
-    </div>
+    </Layout>
   );
 }

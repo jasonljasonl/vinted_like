@@ -9,6 +9,7 @@ import UserOrderPage from './components/Pages/UserOrderPage.tsx'
 import LoginPage from './components/Pages/LoginPage.tsx'
 import RegisterPage from './components/Pages/RegisterPage.tsx'
 import SettingsPage from './components/Pages/SettingsPage.tsx'
+import ComingSoonPage from './components/Pages/ComingSoonPage.tsx'
 import FetchAllProducts from './components/FetchAllProducts.tsx'
 import UserProfileComponent from './components/UserProfileComponent.tsx'
 import ProtectedRoute from './components/ProtectedRoute.tsx'
@@ -25,9 +26,11 @@ function App() {
       <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
       <Route path="/add-product" element={<ProtectedRoute><ProductCreationForm /></ProtectedRoute>} />
       <Route path="/products/:productId/update" element={<ProtectedRoute><ProductUpdateForm /></ProtectedRoute>} />
-      <Route path="/products/:productId" element={<ProtectedRoute><ProductViewPage /></ProtectedRoute>} />
+      <Route path="/products/:productId" element={<ProductViewPage />} />
       <Route path="/browse-products" element={<FetchAllProducts />} />
       <Route path="/users/id/:userId" element={<UserProfileComponent />} />
+      <Route path="/wishlist" element={<ProtectedRoute><ComingSoonPage /></ProtectedRoute>} />
+      <Route path="/help" element={<ComingSoonPage />} />
     </Routes>
   );
 }

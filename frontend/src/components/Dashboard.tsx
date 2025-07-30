@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import ProductListTemplate from './ProductListTemplate.tsx'
-import Menu from './Menu.tsx'
-import SearchBar from './SearchBar.tsx'
+import ProductListTemplate from './ProductListTemplate.tsx';
+import Layout from './Layout.tsx';
 
 const API_BASE_URL = 'http://localhost:8000/users/'
 
@@ -35,16 +34,8 @@ export default function Dashboard({ userId: propUserId }: DashboardProps) {
   }, [propUserId]);
 
   return (
-    <div className='flex h-screen'>
-
-        <Menu />
-
-      <main className="flex-1 overflow-y-auto">
-          <SearchBar />
-        <div className='pt-8'>
+    <Layout>
           <ProductListTemplate userId={userId ?? undefined} />
-        </div>
-      </main>
-    </div>
+    </Layout>
   );
 }

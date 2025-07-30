@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Button from './Button.tsx';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const API_BASE_URL = 'http://localhost:8000/users/';
 
@@ -9,6 +11,9 @@ interface LoginFormData {
 }
 
 const LoginForm: React.FC = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<LoginFormData>({
     username: '',
     hashed_password: '',
@@ -48,26 +53,29 @@ const LoginForm: React.FC = () => {
       const result = await response.json();
       console.log('User logged in:', result);
       const token = result.access_token;
-      localStorage.setItem('token', token);
-
-      const userResponse = await fetch(`${API_BASE_URL}me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!userResponse.ok) {
-        console.error('Failed to fetch user data');
-        alert("Failed to fetch user info");
-        return;
-      }
-
-      const userData = await userResponse.json();
-      console.log('User data:', userData);
-      localStorage.setItem('user_id', userData.id.toString());
+      await login(token);
 
 
-      alert('Login successful!');
+    const userResponse = await fetch(`${API_BASE_URL}me/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!userResponse.ok) {
+      const error = await userResponse.json();
+      console.error('User fetch error:', error);
+      alert('Failed to retrieve user data');
+      return;
+    }
+
+    const userData = await userResponse.json();
+    console.log('User data:', userData);
+    localStorage.setItem('user_id', userData.id.toString());
+
+    alert('Login successful!');
+    navigate('/dashboard');
+
     } catch (err) {
       console.error('Error:', err);
       alert('An error occurred during login');
