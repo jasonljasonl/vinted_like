@@ -1,8 +1,7 @@
 import { useState } from 'react';
-
 import MenuLink from './MenuLink.tsx';
 import UserViewComponent from './UserViewComponent.tsx'
-
+import LogoutButton from './LogoutButton';
 
 export default function Menu() {
       const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -26,10 +25,13 @@ export default function Menu() {
                     <MenuLink icon="material-symbols:settings" label="Settings" to="/settings" />
                     <MenuLink icon="material-symbols:help-outline" label="Need help?" to="/help" />
 
+                    <LogoutButton icon="material-symbols-light:logout" label="Logout" />
+
                 </div>
                 <div className="pt-4 mt-4">
                     <UserViewComponent />
                 </div>
+
             </nav>
           </aside>
         </div>
