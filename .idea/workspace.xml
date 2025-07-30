@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d71c6ee7-8915-4210-b6e6-f4a10dbd14e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,17 +48,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python tests.Python tests for backend.test.test_account_connection.test_connect_user.executor": "Run",
-    "Python tests.Python tests for test_account_connection.test_connect_user.executor": "Run",
-    "Python tests.Python tests for test_database_connection.test_database_connection.executor": "Run",
-    "Python.r.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/jasonlandim/Documents/vinted_like/statics_files/images"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests for backend.test.test_account_connection.test_connect_user.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_account_connection.test_connect_user.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_database_connection.test_database_connection.executor&quot;: &quot;Run&quot;,
+    &quot;Python.r.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jasonlandim/Documents/vinted_like/statics_files/images&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/statics_files/images" />
