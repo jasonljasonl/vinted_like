@@ -1,6 +1,6 @@
-# 🛍️ Vinted Like
+# 🛍️ Loopi
 
-Vinted Like is a full-stack e-commerce platform designed to simulate a real-world online store experience. It allows users to create and manage product listings, handle shopping carts, and place orders, complete with user authentication, media uploads, and cart checkout functionality.
+Loopi is a full-stack e-commerce platform designed to simulate a real-world online store experience. It allows users to create and manage product listings, handle shopping carts, and place orders, complete with user authentication, media uploads, and cart checkout functionality.
 
 ---
 
